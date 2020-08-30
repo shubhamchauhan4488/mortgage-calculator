@@ -120,8 +120,7 @@ export const calculateMortage = (
       });
     }
   }
-  console.log("Summary Table Data", summaryTableData);
-  console.log("Graph Data", graphData);
+
   return {
     summaryTableData,
     graphData,
@@ -131,6 +130,7 @@ export const calculateMortage = (
         interest: parseFloat(
           (payment * numberOfTotalPayments - mortgageAmt).toFixed(2)
         ),
+        // eslint-disable-next-line valid-typeof
         principal: parseFloat(typeof (mortgageAmt) === 'float' ? mortgageAmt.toFixed(2) : mortgageAmt),
       },
     ],

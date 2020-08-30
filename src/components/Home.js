@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Charts } from "./Charts";
 import { SummaryTable } from "./SummaryTable";
 import { validateInputs, hasErrors } from "../utilities/validate";
 import { calculateMortage } from "../utilities/calculations";
@@ -11,6 +12,8 @@ export const Home = () => {
   const [paymentFrequency, setPaymentFrequency] = useState(12);
   const [term, setTerm] = useState(5);
   const [summaryTableData, setSummaryTableData] = useState(5);
+  const [graphData, setGraphData] = useState(null);
+  const [barData, setBarData] = useState({});
   const [errors, setErrors] = useState({
     mortgageAmt: "",
     rate: "",
@@ -59,6 +62,8 @@ export const Home = () => {
       term
     );
     setSummaryTableData(summaryTableData);
+    setGraphData(graphData);
+    setBarData(barData);
   }
 
   const handleSubmit = () => {
@@ -78,9 +83,8 @@ export const Home = () => {
     }
   };
 
-  console.log("errors", errors);
   return (
-    <div className="main-container">
+    <div className="main-content-container">
       <MortgageForm
         mortgageAmt={mortgageAmt}
         rate={rate}
@@ -92,6 +96,7 @@ export const Home = () => {
         errors={errors}
       />
       {summaryTableData?.length > 0 && !hasErrors(errors) && <SummaryTable summaryTableData={summaryTableData} />}
+      {graphData && !hasErrors(errors) && <Charts graphData={graphData} barData={barData} />}
     </div>
   );
 };
