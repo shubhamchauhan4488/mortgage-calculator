@@ -44,6 +44,22 @@ select {
   align-items: center;
 }
 
+.table {
+  background-color: #e9ecef;
+}
+
+.summary-heading{
+  color: #e9ecef
+}
+
+.summary-payment-amount {
+  font-size: 20px;
+  color: #e9ecef;
+}
+.summary-payment-amount span{
+  color: #82ca9d;
+}
+
 @media (max-width: 480px) {
   .header{
   font-size:28px;
