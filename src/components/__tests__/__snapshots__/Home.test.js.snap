@@ -3,7 +3,7 @@
 exports[`Home renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="main-content-container"
+    class="main-container"
   >
     <div
       class="jumbotron no-gutters col-12 col-sm-6 mt-3 py-5"

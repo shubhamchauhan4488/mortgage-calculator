@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Summary Table renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="container-fluid"
+  >
+    <h2
+      class="summary-heading"
+    >
+      Summary
+    </h2>
+    <div
+      class="row justify-content-center align-items-center mb-3 mt-3"
+    >
+      <div
+        class="col-12 col-sm-10"
+      >
+        <table
+          class="table table-striped"
+          data-testid="summary-table"
+          id="summary-table"
+        >
+          <thead
+            class="thead-dark"
+          >
+            <tr>
+              <th
+                scope="col"
+              >
+                Category
+              </th>
+              <th
+                scope="col"
+              >
+                Term Figures
+              </th>
+              <th
+                scope="col"
+              >
+                Amortization Figures
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th
+                scope="row"
+              >
+                Number of Payments
+              </th>
+              <td
+                data-testid="term-0"
+                id="term-0"
+              >
+                120
+              </td>
+              <td
+                data-testid="amortization-0"
+                id="amortization-0"
+              >
+                600
+              </td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+              >
+                Mortgage Payment
+              </th>
+              <td
+                data-testid="term-1"
+                id="term-1"
+              >
+                319.73
+              </td>
+              <td
+                data-testid="amortization-1"
+                id="amortization-1"
+              >
+                319.73
+              </td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+              >
+                Principal Payments,
+              </th>
+              <td
+                data-testid="term-2"
+                id="term-2"
+              >
+                10019.40
+              </td>
+              <td
+                data-testid="amortization-2"
+                id="amortization-2"
+              >
+                100000.00
+              </td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+              >
+                Interest Payments
+              </th>
+              <td
+                data-testid="term-3"
+                id="term-3"
+              >
+                28348.20
+              </td>
+              <td
+                data-testid="amortization-3"
+                id="amortization-3"
+              >
+                91838.89
+              </td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+              >
+                Total Cost
+              </th>
+              <td
+                data-testid="term-4"
+                id="term-4"
+              >
+                38367.78
+              </td>
+              <td
+                data-testid="amortization-4"
+                id="amortization-4"
+              >
+                191838.89
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

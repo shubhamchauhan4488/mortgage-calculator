@@ -135,7 +135,7 @@ export const MortgageForm = ({ mortgageAmt, rate, amortizationPeriod, paymentFre
           type="button"
           id="calculate-btn"
           data-testid="calculate-btn"
-          class="btn btn-dark"
+          className="btn btn-dark"
           onClick={handleSubmit}
         >
           Calculate
