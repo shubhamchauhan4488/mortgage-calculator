@@ -1,10 +1,12 @@
 import React from "react";
+import { summaryCategories } from "../constants/SummaryCategories";
 
 export const SummaryTable = ({ summaryTableData }) => {
-
+  const payment = summaryTableData.filter((item) => item.category === summaryCategories.MORTGAGE_PAYMENT)[0]?.term;
   return (
     <div className="container-fluid">
       <h2 className="summary-heading">Summary</h2>
+      <h3 className='summary-payment-amount'>Your Mortgage payment is just : <span>${payment}</span></h3>
       <div className="row justify-content-center align-items-center mb-3 mt-3">
         <div className="col-12 col-sm-10">
           <table
@@ -41,4 +43,3 @@ export const SummaryTable = ({ summaryTableData }) => {
     </div>
   )
 }
-
