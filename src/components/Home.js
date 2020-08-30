@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MortgageForm } from "./MortgageForm";
+import { validateInputs } from "../utilities/validate";
 
 export const Home = () => {
   const [mortgageAmt, setMortgageAmt] = useState(50000);
@@ -46,6 +47,21 @@ export const Home = () => {
     }
   };
 
+  const handleSubmit = () => {
+    const formErrors = validateInputs(
+      mortgageAmt,
+      rate,
+      amortizationPeriod,
+      term
+    );
+
+    setErrors({
+      ...errors,
+      ...formErrors,
+    });
+
+  };
+
   return (
     <div className="main-content-container">
       <MortgageForm
@@ -55,6 +71,7 @@ export const Home = () => {
         paymentFrequency={paymentFrequency}
         term={term}
         handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
         errors={errors}
       />
     </div>
