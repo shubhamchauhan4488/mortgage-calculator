@@ -38,7 +38,7 @@ export const validateTerm = (amortizationPeriod, value) => {
 
 export const hasErrors = (formErrors) => {
   let hasError = false
-  for (const [key, value] of Object.entries(formErrors)) {
+  for (const [, value] of Object.entries(formErrors)) {
     if (value !== '') {
       hasError = true;
       break;
