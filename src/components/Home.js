@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { MortgageForm } from "./MortgageForm";
-import { validateInputs } from "../utilities/validate";
-import { mockSummaryTableData } from "./__mocks__/summaryTableData";
 import { SummaryTable } from "./SummaryTable";
+import { validateInputs, hasErrors } from "../utilities/validate";
+import { calculateMortage } from "../utilities/calculations";
+import { MortgageForm } from "./MortgageForm";
 
 export const Home = () => {
   const [mortgageAmt, setMortgageAmt] = useState(50000);
@@ -10,6 +10,7 @@ export const Home = () => {
   const [amortizationPeriod, setAmortizationPeriod] = useState(25);
   const [paymentFrequency, setPaymentFrequency] = useState(12);
   const [term, setTerm] = useState(5);
+  const [summaryTableData, setSummaryTableData] = useState(5);
   const [errors, setErrors] = useState({
     mortgageAmt: "",
     rate: "",
@@ -49,6 +50,17 @@ export const Home = () => {
     }
   };
 
+  const calculate = () => {
+    const { summaryTableData, graphData, barData } = calculateMortage(
+      mortgageAmt,
+      rate,
+      amortizationPeriod,
+      paymentFrequency,
+      term
+    );
+    setSummaryTableData(summaryTableData);
+  }
+
   const handleSubmit = () => {
     const formErrors = validateInputs(
       mortgageAmt,
@@ -56,16 +68,19 @@ export const Home = () => {
       amortizationPeriod,
       term
     );
-
-    setErrors({
-      ...errors,
-      ...formErrors,
-    });
-
+    if (hasErrors(formErrors)) {
+      setErrors({
+        ...errors,
+        ...formErrors,
+      });
+    } else {
+      calculate();
+    }
   };
 
+  console.log("errors", errors);
   return (
-    <div className="main-content-container">
+    <div className="main-container">
       <MortgageForm
         mortgageAmt={mortgageAmt}
         rate={rate}
@@ -76,7 +91,7 @@ export const Home = () => {
         handleSubmit={handleSubmit}
         errors={errors}
       />
-      {<SummaryTable summaryTableData={mockSummaryTableData} />}
+      {summaryTableData?.length > 0 && !hasErrors(errors) && <SummaryTable summaryTableData={summaryTableData} />}
     </div>
   );
 };
