@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { MortgageForm } from "./MortgageForm";
 import { validateInputs } from "../utilities/validate";
+import { mockSummaryTableData } from "./__mocks__/summaryTableData";
+import { SummaryTable } from "./SummaryTable";
 
 export const Home = () => {
   const [mortgageAmt, setMortgageAmt] = useState(50000);
@@ -74,6 +76,7 @@ export const Home = () => {
         handleSubmit={handleSubmit}
         errors={errors}
       />
+      {<SummaryTable summaryTableData={mockSummaryTableData} />}
     </div>
   );
 };
