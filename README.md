@@ -17,6 +17,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 Launch this to check all the tes cases running
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+<p>Test Coverage</p>
+<img src="screenshots/testcasescoverage.png" />
+
 ### Deployment
 
 This app has been deploted here: https://mortgage-calculation-app.herokuapp.com/
