@@ -60,6 +60,16 @@ select {
   color: #82ca9d;
 }
 
+.chart-container {
+  overflow-x: auto;
+  margin: 20px 0 40px 0px;
+}
+
+.diagram-heading {
+  color: #e9ecef
+}
+
+/** Media queries */
 @media (max-width: 480px) {
   .header{
   font-size:28px;
