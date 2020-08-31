@@ -29,7 +29,7 @@ export const Charts = (props) => {
               <stop offset="95%" stopColor={colors.PURPLE} stopOpacity={0.1} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" tick={{ stroke: colors.PRIMARY }} />
+          <XAxis dataKey="numberOfPayments" tick={{ stroke: colors.PRIMARY }} />
           <YAxis tick={{ stroke: colors.PRIMARY }} />
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
@@ -39,6 +39,13 @@ export const Charts = (props) => {
             stroke={colors.PURPLE}
             fillOpacity={1}
             fill="url(#colorUv)"
+          />
+          <Area
+            type="monotone"
+            dataKey="numberOfPayments"
+            stroke={colors.LIGHT_GREEN}
+            fillOpacity={0}
+            fill="url(#colorPv)"
           />
         </AreaChart>
 
@@ -52,7 +59,7 @@ export const Charts = (props) => {
           <XAxis dataKey="totalCost" tick={{ stroke: colors.PRIMARY }} />
           <YAxis tick={{ stroke: colors.PRIMARY }} />
           <Tooltip />
-          <Legend />
+          <Legend wrapperStyle={{ color: "white" }} />
           <Bar dataKey="principal" fill={colors.PURPLE} />
           <Bar dataKey="interest" fill={colors.LIGHT_GREEN} />
         </BarChart>

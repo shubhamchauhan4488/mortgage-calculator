@@ -30,7 +30,7 @@ export const calculateMortage = (
   });
 
   graphData.push({
-    name: "0",
+    numberOfPayments: "0",
     principal: mortgageAmt,
   });
   const monthlyRateFloat = getMonthlyRateFromEAR(rate) / 100;
@@ -69,7 +69,7 @@ export const calculateMortage = (
 
     if (i % paymentFrequency === 0) {
       graphData.push({
-        name: i.toString(),
+        numberOfPayments: i.toString(),
         principal: parseFloat(
           (mortgageAmt - termPrincipalPaymentSum).toFixed(2)
         ),
@@ -111,7 +111,7 @@ export const calculateMortage = (
 
     if (j % paymentFrequency === 0) {
       graphData.push({
-        name: j.toString(),
+        numberOfPayments: j.toString(),
         principal: parseFloat(
           (mortgageAmt - termPrincipalPaymentSum).toFixed(2) > 0
             ? (mortgageAmt - termPrincipalPaymentSum).toFixed(2)

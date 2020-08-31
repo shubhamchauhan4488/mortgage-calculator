@@ -10,6 +10,14 @@ exports[`Summary Table renders correctly 1`] = `
     >
       Summary
     </h2>
+    <h3
+      class="summary-payment-amount"
+    >
+      Your Mortgage payment is just : 
+      <span>
+        $319.73
+      </span>
+    </h3>
     <div
       class="row justify-content-center align-items-center mb-3 mt-3"
     >
@@ -85,7 +93,7 @@ exports[`Summary Table renders correctly 1`] = `
               <th
                 scope="row"
               >
-                Principal Payments,
+                Principal Payments
               </th>
               <td
                 data-testid="term-2"
