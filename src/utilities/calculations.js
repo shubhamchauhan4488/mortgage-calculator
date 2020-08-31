@@ -11,17 +11,8 @@ const convertToFloat = x => {
   return Number.parseFloat(x).toFixed(2);
 }
 
-export const calculateMortage = (
-  mortgageAmt,
-  rate,
-  amortizationPeriod,
-  paymentFrequency,
-  term
-) => {
-  const numberOfTermPayments = paymentFrequency * term;
-  const numberOfTotalPayments = paymentFrequency * amortizationPeriod;
+const generateSummaryTableData = (numberOfTermPayments, numberOfTotalPayments, payment, termPrincipalPaymentSum, mortgageAmt, termInterestPaymentSum) => {
   const summaryTableData = [];
-  const graphData = [];
 
   summaryTableData.push({
     category: summaryCategories.NUMBER_OF_PAYMENTS,
@@ -29,53 +20,11 @@ export const calculateMortage = (
     amortization: numberOfTotalPayments,
   });
 
-  graphData.push({
-    numberOfPayments: "0",
-    principal: mortgageAmt,
-  });
-  const monthlyRateFloat = getMonthlyRateFromEAR(rate) / 100;
-  const frequencyfactoredRateFloat = monthlyRateFloat * (12 / paymentFrequency);
-
-  const interestPayment = mortgageAmt * frequencyfactoredRateFloat;
-
-  const payment =
-    interestPayment /
-    (1 - Math.pow(1 + frequencyfactoredRateFloat, -numberOfTotalPayments));
-
   summaryTableData.push({
     category: summaryCategories.MORTGAGE_PAYMENT,
     term: convertToFloat(payment),
     amortization: convertToFloat(payment),
   });
-  const firstPrincipalPayment = payment - interestPayment;
-  const numberOfTermPaymentsLeft = numberOfTermPayments - 1;
-  let termPrincipalPaymentSum = firstPrincipalPayment;
-  let termInterestPaymentSum = interestPayment;
-  let endingBalance = mortgageAmt - firstPrincipalPayment;
-
-  for (let i = 1; i <= numberOfTermPaymentsLeft; i++) {
-    const nextInterestPayment = parseFloat(
-      convertToFloat(endingBalance * frequencyfactoredRateFloat)
-    );
-    const nextPrincipalPayment = parseFloat(
-      convertToFloat(payment - nextInterestPayment)
-    );
-    endingBalance =
-      parseFloat(endingBalance) -
-      parseFloat(payment) +
-      parseFloat(nextInterestPayment);
-    termInterestPaymentSum += nextInterestPayment;
-    termPrincipalPaymentSum += nextPrincipalPayment;
-
-    if (i % paymentFrequency === 0) {
-      graphData.push({
-        numberOfPayments: i.toString(),
-        principal: parseFloat(
-          (mortgageAmt - termPrincipalPaymentSum).toFixed(2)
-        ),
-      });
-    }
-  }
 
   summaryTableData.push({
     category: summaryCategories.PRINCIPAL_PAYMENTS,
@@ -95,13 +44,41 @@ export const calculateMortage = (
     amortization: convertToFloat(numberOfTotalPayments * payment),
   });
 
-  for (let j = numberOfTermPayments; j <= numberOfTotalPayments; j++) {
-    const nextInterestPayment = parseFloat(
-      convertToFloat(endingBalance * frequencyfactoredRateFloat)
-    );
-    const nextPrincipalPayment = parseFloat(
-      convertToFloat(payment - nextInterestPayment)
-    );
+  return summaryTableData
+}
+
+export const calculateMortage = (
+  mortgageAmt,
+  rate,
+  amortizationPeriod,
+  paymentFrequency,
+  term
+) => {
+  const numberOfTermPayments = paymentFrequency * term;
+  const numberOfTotalPayments = paymentFrequency * amortizationPeriod;
+  const monthlyRateFloat = getMonthlyRateFromEAR(rate) / 100;
+  const frequencyfactoredRateFloat = monthlyRateFloat * (12 / paymentFrequency);
+  const interestPayment = mortgageAmt * frequencyfactoredRateFloat;
+
+  const payment =
+    interestPayment /
+    (1 - Math.pow(1 + frequencyfactoredRateFloat, -numberOfTotalPayments));
+
+  const firstPrincipalPayment = payment - interestPayment;
+  const numberOfTermPaymentsLeft = numberOfTermPayments - 1;
+  let termPrincipalPaymentSum = firstPrincipalPayment;
+  let termInterestPaymentSum = interestPayment;
+  let endingBalance = mortgageAmt - firstPrincipalPayment;
+  let summaryTableData = [];
+  let graphData = [];
+  graphData.push({
+    numberOfPayments: "0",
+    principal: mortgageAmt,
+  });
+
+  for (let i = 1; i <= numberOfTotalPayments; i++) {
+    const nextInterestPayment = parseFloat(convertToFloat(endingBalance * frequencyfactoredRateFloat));
+    const nextPrincipalPayment = parseFloat(convertToFloat(payment - nextInterestPayment));
     endingBalance =
       parseFloat(endingBalance) -
       parseFloat(payment) +
@@ -109,9 +86,9 @@ export const calculateMortage = (
     termInterestPaymentSum += nextInterestPayment;
     termPrincipalPaymentSum += nextPrincipalPayment;
 
-    if (j % paymentFrequency === 0) {
+    if (i % paymentFrequency === 0) {
       graphData.push({
-        numberOfPayments: j.toString(),
+        numberOfPayments: i.toString(),
         principal: parseFloat(
           (mortgageAmt - termPrincipalPaymentSum).toFixed(2) > 0
             ? (mortgageAmt - termPrincipalPaymentSum).toFixed(2)
@@ -119,20 +96,28 @@ export const calculateMortage = (
         ),
       });
     }
+    if (i === numberOfTermPaymentsLeft) {
+      summaryTableData = generateSummaryTableData(numberOfTermPayments, numberOfTotalPayments, payment, termPrincipalPaymentSum, mortgageAmt, termInterestPaymentSum)
+    }
   }
+
+  console.log('Table data :: ', summaryTableData)
+  console.log('GraphData ::', graphData)
+  /** Bar graph data */
+  const barData = [
+    {
+      totalCost: "Total Mortgage Cost",
+      interest: parseFloat(
+        (payment * numberOfTotalPayments - mortgageAmt).toFixed(2)
+      ),
+      // eslint-disable-next-line valid-typeof
+      principal: parseFloat(typeof (mortgageAmt) === 'float' ? mortgageAmt.toFixed(2) : mortgageAmt),
+    },
+  ]
 
   return {
     summaryTableData,
     graphData,
-    barData: [
-      {
-        totalCost: "Total Mortgage Cost",
-        interest: parseFloat(
-          (payment * numberOfTotalPayments - mortgageAmt).toFixed(2)
-        ),
-        // eslint-disable-next-line valid-typeof
-        principal: parseFloat(typeof (mortgageAmt) === 'float' ? mortgageAmt.toFixed(2) : mortgageAmt),
-      },
-    ],
+    barData,
   };
 };
