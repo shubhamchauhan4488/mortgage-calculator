@@ -1,5 +1,10 @@
 This app is DEPLOYED to Github Pages: https://shubhamchauhan4488.github.io/mortgage-calculator/
 
+Screenshots
+<img width="1662" alt="image" src="https://github.com/shubhamchauhan4488/mortgage-calculator/assets/31673747/ce5e6040-ae2e-430b-8111-e7a87a2b8925">
+
+<img width="1563" alt="image" src="https://github.com/shubhamchauhan4488/mortgage-calculator/assets/31673747/7fe8ad8c-7e1c-41f1-9def-74736b888b2e">
+
 ## How to run on local
 
 ### `git clone the repo`
