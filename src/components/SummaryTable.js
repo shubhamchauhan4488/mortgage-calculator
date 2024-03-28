@@ -1,6 +1,7 @@
 import React from "react";
 import { summaryCategories } from "../constants/SummaryCategories";
 
+
 export const SummaryTable = ({ summaryTableData }) => {
   const payment = summaryTableData.filter((item) => item.category === summaryCategories.MORTGAGE_PAYMENT)[0]?.term;
   return (
